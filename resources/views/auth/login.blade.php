@@ -54,12 +54,14 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control @error('password') is-invalid @enderror form-control-user"
+                                            <input type="password" class="form-control @error('password') is-invalid @enderror form-control-user show"
                                                 id="exampleInputPassword" name="password" placeholder="Password">
                                             @error('password')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
+                                              <span class="strong  w-full d-block mt-1 rounded" style="height:5px;
+                                                transition:all 1s;width:0px;"></span>
                                             @enderror
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
@@ -85,6 +87,42 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('templates/dashboard/sb-admin-2') }}/js/sb-admin-2.min.js"></script>
+    
+    <!--strong passsword-->
+    <script>
+    const Cekstrong = (CekString) => {
+    switch (CekString) {
+        case 1:
+            $(".strong").css({
+                width: "55%",
+                "background-color": "#FF0000",
+            });
+            break;
+        case 2:
+            $(".strong").css({
+                width: "100%",
+                "background-color": "#32CD32",
+            });
+            break;
+        default:
+            $(".strong").css({
+                width: "0%",
+                "background-color": "#ffff",
+            });
+            break;
+         }
+    };
+    $(document).ready(function(){
+        $(".show").keyup(function (e) {
+            CekString = 0;
+            let pas = $(this).val();
+            const FilterRegex = new RegExp("(?=.*[a-zA-Z])(?=.*[0-9])");
+            if (FilterRegex.test(pas)) CekString += 1;
+            if (pas.length > 5) CekString += 1;
+            Cekstrong(CekString);
+        });
+    }
+    </script>
 
 </body>
 
